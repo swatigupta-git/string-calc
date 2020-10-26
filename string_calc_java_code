@@ -1,11 +1,11 @@
 
-
 /*Create a simple String calculator with a method signature:
 int Add(string numbers)
 Return 0 on empty string
 Return same number for a single number
 Add 2 numbers separated with comma
 Add all numbers separated with comma
+Handle new line between numbers
 */
 
 
@@ -17,7 +17,7 @@ public class Calculator {
 		if(num_string.isEmpty()) {
 			return 0; /*if string is empty, return 0*/
 		} else  {
-			String[] tokens = num_string.split(","); /*splitting numbers*/
+			String[] tokens = num_string.split(",|\u"); /*handling new line and splitting numbers*/
 			List<Integer> numbers=convert(tokens, convInt());
 			return sum(numbers).intValue(); /*calculate final sum*/
 		
@@ -27,7 +27,7 @@ public class Calculator {
 	private static int convInt(String num_string) throws NumberFormatException {
 		return Integer.parseInt(num_string);
 	}
-	
+
 	private static Converter<String, Integer> convInt()  {
 		return new Converter<String, Integer>()  {
 			public Integer convert(String from)  {
@@ -36,5 +36,6 @@ public class Calculator {
 		};
 	}
 
+	
 		
 }
