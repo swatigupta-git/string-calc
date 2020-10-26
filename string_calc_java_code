@@ -7,21 +7,34 @@ Add 2 numbers separated with comma
 Add all numbers separated with comma
 Handle new line between numbers
 Supporting different delimiters
+Raise Exception for negative numbers and display them
 */
 
 
-
 import java.util.List;
+import java.utilregex.Matcher;
+import java.util.regex.Pattern;
+import static org.hamcrest.Matchers.*
 
 /* main function*/
 public class Calculator {
 	public static int Add(String num_string) {
 			String[] tokens = toTokens(num_string); /*get individual numbers from the input string*/
 			List<Integer> numbers=convert(tokens, convInt());
+			checkForNegative(numbers); /*check for any negative number in input string, throw an exception and display those numbers*/
 			return sum(numbers).intValue(); /*calculate final sum*/
 		
 
 	}	
+	
+	/*function to find negative numbers, throw exception and display the negative numbers*/
+	private static void checkForNegative(List<Integer> numbers) throws RuntimeError
+		List<Integer> negativeNums = filter(lessThan(0),numbers);
+		if(negativeNums.size() > 0) {
+			throw new RuntimeException("Negative numbers are not allowed, input of negative numbers- " + join(negativeNums));
+		}
+	}
+
 
 	private static String[] toTokens(String num_string)  {
 		if(num_string.isEmpty()) {
