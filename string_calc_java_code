@@ -1,6 +1,8 @@
+
 /*Create a simple String calculator with a method signature:
 int Add(string numbers)
 Return 0 on empty string
+Return same number for a single number
 */
 
 /* main function*/
@@ -8,6 +10,9 @@ public class Calculator {
 	public static int Add(String num_string) {
 		if(num_string.isEmpty()) {
 			return 0; /*if string is empty, return 0*/
+		} else { /*return same number*/
+			return Integer.parseInt(num_string);
 		}
 	}
+		
 }
