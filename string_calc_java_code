@@ -6,7 +6,9 @@ Return same number for a single number
 Add 2 numbers separated with comma
 Add all numbers separated with comma
 Handle new line between numbers
+Supporting different delimiters
 */
+
 
 
 import java.util.List;
@@ -14,16 +16,27 @@ import java.util.List;
 /* main function*/
 public class Calculator {
 	public static int Add(String num_string) {
-		if(num_string.isEmpty()) {
-			return 0; /*if string is empty, return 0*/
-		} else  {
-			String[] tokens = num_string.split(",|\u"); /*handling new line and splitting numbers*/
+			String[] tokens = toTokens(num_string); /*get individual numbers from the input string*/
 			List<Integer> numbers=convert(tokens, convInt());
 			return sum(numbers).intValue(); /*calculate final sum*/
 		
-		} 
+
 	}	
-	
+
+	private static String[] toTokens(String num_string)  {
+		if(num_string.isEmpty()) {
+			return new String[0]; /*if string is empty, return 0*/
+		}else if(num_string.startsWith("//")) { /*handling custom delimiter*/
+			Matcher m= Pattern.compile("//(.)\n(.")").matcher(num_string);
+			m.matches();
+			String givenDelim = m.group(1);
+			String numbers = m.group(2);
+			return numbers.split(Pattern.quote(givenDelim));
+		} else{ /*handling new line and splitting numbers*/
+			return num_string.split(",|\u");
+		}
+	}
+
 	private static int convInt(String num_string) throws NumberFormatException {
 		return Integer.parseInt(num_string);
 	}
@@ -35,7 +48,5 @@ public class Calculator {
 			}
 		};
 	}
-
-	
 		
 }
