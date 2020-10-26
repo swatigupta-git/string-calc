@@ -1,23 +1,40 @@
 
+
 /*Create a simple String calculator with a method signature:
 int Add(string numbers)
 Return 0 on empty string
 Return same number for a single number
 Add 2 numbers separated with comma
+Add all numbers separated with comma
 */
+
+
+import java.util.List;
 
 /* main function*/
 public class Calculator {
 	public static int Add(String num_string) {
 		if(num_string.isEmpty()) {
 			return 0; /*if string is empty, return 0*/
-		} else if(num_string.contains(","))  {
+		} else  {
 			String[] tokens = num_string.split(","); /*splitting numbers*/
-			return Integer.parseInt(tokens[0])  + Integer.parseInt(tokens[1]); /*calculate final sum*/
+			List<Integer> numbers=convert(tokens, convInt());
+			return sum(numbers).intValue(); /*calculate final sum*/
 		
-		}  else { /*return same number*/
-			return Integer.parseInt(num_string);
-		}
+		} 
+	}	
+	
+	private static int convInt(String num_string) throws NumberFormatException {
+		return Integer.parseInt(num_string);
 	}
+	
+	private static Converter<String, Integer> convInt()  {
+		return new Converter<String, Integer>()  {
+			public Integer convert(String from)  {
+				return convInt(from);
+			}
+		};
+	}
+
 		
 }
